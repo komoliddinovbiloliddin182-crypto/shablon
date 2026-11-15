@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080d1b">
+<title>BotBuilder — Telegram bot platformasi</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+:root{--bg:#080d1b;--panel:#10182b;--panel2:#131f36;--line:#24314d;--muted:#94a3bd;--text:#f3f6ff;--blue:#6d8cff;--cyan:#55e1d0;--purple:#a78bfa;--green:#42d392;--red:#ff7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#1b2b55 0,transparent 38%),radial-gradient(ellipse at 90% 10%,#18274a 0,transparent 28%),var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh}
+button,input,select{font:inherit}button{cursor:pointer;border:0}
+.topbar{height:76px;border-bottom:1px solid #ffffff12;display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,22px);backdrop-filter:blur(18px);position:sticky;top:0;background:#080d1bd9;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;font:700 20px 'Space Grotesk'} .brand-icon{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,var(--blue),#9a70ff);display:grid;place-items:center;box-shadow:0 8px 24px #6d8cff44;font-size:21px}
+.brand span{color:#8da5ff}.top-actions{display:flex;align-items:center;gap:12px}.pill{padding:9px 14px;border:1px solid #ffffff1b;border-radius:30px;color:#c6d2eb;font-size:12px;background:#ffffff08}.online{display:flex;gap:7px;align-items:center}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green)}
+main{max-width:1180px;margin:auto;padding:44px 24px 80px}.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:32px}.eyebrow{color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase}.hero h1{font:700 clamp(30px,4vw,48px)/1.08 'Space Grotesk';letter-spacing:-1.8px;margin:12px 0}.hero h1 em{font-style:normal;background:linear-gradient(90deg,#83a0ff,#67e6d5);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{color:var(--muted);max-width:610px;line-height:1.7;margin:0}.hero-chip{border:1px solid #55e1d044;background:#55e1d00d;color:#7be9d9;border-radius:14px;padding:14px 17px;font-size:13px;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:28px}.stat{background:linear-gradient(145deg,#121d33,#0e1729);border:1px solid var(--line);border-radius:17px;padding:18px 20px}.stat small{color:var(--muted);font-size:12px}.stat strong{display:block;font:700 27px 'Space Grotesk';margin-top:7px}.stat-icon{float:right;font-size:20px;opacity:.85}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start}.panel{background:linear-gradient(155deg,#121c31f5,#0e1729f5);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:0 18px 50px #0002}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}.section-head h2{font:600 19px 'Space Grotesk';margin:0}.step{font-size:11px;color:#aebcff;background:#6d8cff19;border:1px solid #6d8cff35;padding:6px 10px;border-radius:20px}
+.templates{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}.template{padding:17px;text-align:left;border-radius:15px;border:1px solid var(--line);background:#0b1426;color:var(--text);transition:.2s;min-height:120px}.template:hover{border-color:#718bff;transform:translateY(-2px)}.template.active{border-color:#7791ff;background:linear-gradient(145deg,#25345b,#172541);box-shadow:inset 0 0 0 1px #7791ff33}.template .ico{font-size:24px}.template b{display:block;margin:9px 0 4px;font-size:14px}.template small{color:var(--muted);font-size:11px;line-height:1.5;display:block}
+.field{margin-top:22px}.field label{display:block;font-size:12px;font-weight:700;color:#c8d3e9;margin-bottom:9px}.input-wrap{display:flex;gap:9px}.input-wrap input,.search{width:100%;background:#080f1e;border:1px solid #2b3957;border-radius:12px;color:white;padding:14px 15px;outline:none;min-width:0}.input-wrap input:focus,.search:focus{border-color:var(--blue);box-shadow:0 0 0 3px #6d8cff1c}.input-wrap button,.primary{background:linear-gradient(100deg,#6687ff,#8a70ff);color:white;border-radius:12px;padding:0 18px;font-weight:700;white-space:nowrap;box-shadow:0 8px 20px #6d8cff30}.primary{padding:12px 17px}.primary:disabled{opacity:.55;cursor:wait}.hint{font-size:11px;color:#8090ad;line-height:1.6;margin-top:10px}.hint a{color:#9bb0ff;text-decoration:none}.notice{display:none;margin-top:14px;padding:13px 15px;border-radius:12px;font-size:13px;line-height:1.5}.notice.success{display:block;background:#12392d;border:1px solid #286e54;color:#9af0c9}.notice.error{display:block;background:#3c1b2a;border:1px solid #7b354a;color:#ffb1bd}
+.side-panel{position:sticky;top:96px}.feature{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid #ffffff10}.feature:last-child{border:0}.feature-icon{width:38px;height:38px;flex:none;border-radius:12px;background:#6d8cff1b;display:grid;place-items:center}.feature b{font-size:13px}.feature p{font-size:11px;color:var(--muted);margin:4px 0 0;line-height:1.5}
+.bot-section{margin-top:20px}.bot-toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:20px 0 14px}.bot-toolbar h2{font:600 19px 'Space Grotesk';margin:0}.search{max-width:250px;padding:10px 12px;font-size:12px}.bot-list{display:grid;gap:10px}.bot-row{display:flex;justify-content:space-between;align-items:center;gap:15px;background:#0c1527;border:1px solid var(--line);border-radius:14px;padding:15px 17px}.bot-id{display:flex;align-items:center;gap:12px;min-width:0}.bot-avatar{width:40px;height:40px;border-radius:13px;background:linear-gradient(135deg,#273d70,#334b77);display:grid;place-items:center;font-size:18px}.bot-meta{min-width:0}.bot-meta b{font-size:13px}.bot-meta small{display:block;color:var(--muted);font-size:11px;margin-top:4px}.status{font-size:10px;padding:6px 9px;border-radius:30px;white-space:nowrap}.status.active{color:#79e9b4;background:#1a4938}.status.expired{color:#ff9dac;background:#4b2633}.empty{border:1px dashed #344360;border-radius:14px;text-align:center;padding:30px;color:var(--muted);font-size:13px}.footer{text-align:center;color:#63718d;font-size:11px;margin-top:35px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.side-panel{position:static}.hero{display:block}.hero-chip{display:inline-block;margin-top:20px}.stats{gap:9px}.stat{padding:14px}.stat strong{font-size:23px}}
+@media(max-width:520px){main{padding:30px 15px 55px}.topbar{padding:0 15px;height:65px}.pill{display:none}.templates{gap:8px}.template{padding:13px;min-height:116px}.panel{padding:18px}.input-wrap{flex-direction:column}.input-wrap button{padding:14px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:span 2}.bot-toolbar{align-items:flex-start;flex-direction:column}.search{max-width:none}.bot-row{align-items:flex-start}.status{margin-top:4px}}
+</style>
+</head>
+<body>
+<header class="topbar"><div class="brand"><div class="brand-icon">🤖</div>BotBuilder<span>.uz</span></div><div class="top-actions"><div class="pill online"><i class="dot"></i> Platforma tayyor</div><div class="pill">UZ 🇺🇿</div></div></header>
+<main>
+<section class="hero"><div><div class="eyebrow">NEXT-GEN TELEGRAM AUTOMATION</div><h1>G‘oyangizni botga <em>aylantiring.</em></h1><p>Dasturlashsiz Telegram botingizni ishga tushiring. Shablonni tanlang, BotFather tokenini ulang — qolganini BotBuilder bajaradi.</p></div><div class="hero-chip">✦ 3 kunlik bepul sinov · Karta talab qilinmaydi</div></section>
+<section class="stats">
+<div class="stat"><span class="stat-icon">🤖</span><small>Platformadagi botlar</small><strong id="totalBots">—</strong></div>
+<div class="stat"><span class="stat-icon">🟢</span><small>Faol botlar</small><strong id="activeBots">—</strong></div>
+<div class="stat"><span class="stat-icon">⚡</span><small>Mavjud shablonlar</small><strong>4</strong></div>
+</section>
+<div class="layout">
+<section class="panel">
+<div class="section-head"><h2>Bot yaratish</h2><span class="step">01 / 02</span></div>
+<div class="templates" id="templates">
+<button class="template active" data-template="support"><span class="ico">💬</span><b>Yordam markazi</b><small>Mijozlar savollarini qabul qilish</small></button>
+<button class="template" data-template="shop"><span class="ico">🛍️</span><b>Onlayn do‘kon</b><small>Katalog va buyurtma qabul qilish</small></button>
+<button class="template" data-template="quiz"><span class="ico">🧠</span><b>Quiz / Test</b><small>Viktorina va bilim sinovi</small></button>
+<button class="template" data-template="sub"><span class="ico">🔐</span><b>Obuna boti</b><small>Kanalga obuna bo‘lish yo‘riqnomasi</small></button>
+</div>
+<div class="field"><label for="botToken">TELEGRAM BOT TOKENI</label><div class="input-wrap"><input id="botToken" type="password" autocomplete="off" placeholder="123456789:AA..."><button id="toggleToken" type="button" style="background:#1c2942;color:#cbd7f2;padding:0 14px">Ko‘rsatish</button></div><div class="hint">Tokenni <a href="https://t.me/BotFather" target="_blank" rel="noopener">@BotFather</a> orqali <b>/newbot</b> buyrug‘i bilan oling. Token maxfiy kalit — uni hech kimga yubormang.</div></div>
+<button class="primary" id="launchBtn" style="width:100%;margin-top:17px">🚀 Botni ishga tushirish</button>
+<div id="alertBox" class="notice" role="status" aria-live="polite"></div>
+</section>
+<aside class="panel side-panel"><div class="section-head"><h2>Platforma imkoniyatlari</h2><span class="step">FEATURES</span></div>
+<div class="feature"><div class="feature-icon">⚙️</div><div><b>Avtomatik ishga tushirish</b><p>Bot tokeni tekshiriladi va bot serverda ishga tushadi.</p></div></div>
+<div class="feature"><div class="feature-icon">⏱️</div><div><b>3 kunlik sinov</b><p>Har bir yangi bot uchun sinov muddati avtomatik belgilanadi.</p></div></div>
+<div class="feature"><div class="feature-icon">📊</div><div><b>Botlar monitoringi</b><p>Faol va muddati tugagan botlarni bitta panelda ko‘ring.</p></div></div>
+<div class="feature"><div class="feature-icon">📱</div><div><b>Mobilga mos dizayn</b><p>Telefon, planshet va kompyuterda qulay ishlaydi.</p></div></div>
+</aside></div>
+<section class="bot-section"><div class="bot-toolbar"><h2>📡 Sizning botlaringiz</h2><input class="search" id="botSearch" placeholder="Bot nomidan qidirish..."></div><div class="bot-list" id="botsContainer"><div class="empty">Botlar yuklanmoqda...</div></div></section>
+<div class="footer">© 2026 BotBuilder.uz · Telegram botlarni boshqarish platformasi</div>
+</main>
+<script>
+let selectedTemplate='support', allBots=[];
+document.querySelectorAll('.template').forEach(card=>card.addEventListener('click',()=>{document.querySelectorAll('.template').forEach(x=>x.classList.remove('active'));card.classList.add('active');selectedTemplate=card.dataset.template;}));
+const $=id=>document.getElementById(id);
+$('toggleToken').addEventListener('click',()=>{const el=$('botToken');el.type=el.type==='password'?'text':'password';$('toggleToken').textContent=el.type==='password'?'Ko‘rsatish':'Yashirish';});
+function showNotice(type,msg){const box=$('alertBox');box.className='notice '+type;box.textContent=msg;}
+$('launchBtn').addEventListener('click',launchBot);
+$('botToken').addEventListener('keydown',e=>{if(e.key==='Enter')launchBot();});
+async function launchBot(){
+ const btn=$('launchBtn'),token=$('botToken').value.trim();
+ if(!/^\d+:[A-Za-z0-9_-]{20,}$/.test(token)){showNotice('error','Token formati noto‘g‘ri. @BotFather bergan tokenni tekshiring.');return;}
+ btn.disabled=true;btn.textContent='⏳ Tekshirilmoqda...';
+ try{
+  const res=await fetch('/api/create-bot',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({bot_token:token,template:selectedTemplate})});
+  const data=await res.json();
+  if(!res.ok||!data.ok)throw new Error(data.error||'Bot yaratilmadi.');
+  showNotice('success',`🎉 @${data.username} muvaffaqiyatli ulandi! 3 kunlik sinov boshlandi. Telegramda botga /start yuboring.`);
+  $('botToken').value='';await loadBots();
+ }catch(e){showNotice('error','❌ '+(e.message||'Server bilan ulanishda xatolik.'));}
+ finally{btn.disabled=false;btn.textContent='🚀 Botni ishga tushirish';}
+}
+function renderBots(){
+ const q=$('botSearch').value.toLowerCase(),filtered=allBots.filter(b=>('@'+b.username).toLowerCase().includes(q)||b.template.toLowerCase().includes(q));
+ $('totalBots').textContent=allBots.length;$('activeBots').textContent=allBots.filter(b=>b.is_active).length;
+ if(!filtered.length){$('botsContainer').innerHTML=`<div class="empty">${allBots.length?'Qidiruv bo‘yicha bot topilmadi.':'Hozircha bot yo‘q. Birinchi botingizni yarating ✨'}</div>`;return;}
+ $('botsContainer').innerHTML=filtered.map(b=>`<article class="bot-row"><div class="bot-id"><div class="bot-avatar">🤖</div><div class="bot-meta"><b>@${escapeHtml(b.username)}</b><small>${escapeHtml((b.template||'').toUpperCase())} · Sinov tugashi: ${escapeHtml(b.trial_ends_at)}</small></div></div><span class="status ${b.is_active?'active':'expired'}">${b.is_active?'● Faol':'● Muddati tugagan'}</span></article>`).join('');
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+$('botSearch').addEventListener('input',renderBots);
+async function loadBots(){try{const r=await fetch('/api/bots');if(!r.ok)throw new Error();allBots=await r.json();renderBots();}catch{$('botsContainer').innerHTML='<div class="empty">Botlar ro‘yxatini yuklab bo‘lmadi. Server ishlayotganini tekshiring.</div>';}}
+loadBots();
+</script>
+</body></html>
